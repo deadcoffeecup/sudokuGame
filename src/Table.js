@@ -53,7 +53,11 @@ class Table extends React.Component {
     let all = [];
     for (let i = 0; i < 81; i++) {
       all.push(
-        <Square key={i} onChange={(event) => this.handleChange(i, event)} />
+        <Square
+          key={i}
+          value={this.state.squares[i]}
+          onChange={(event) => this.handleChange(i, event)}
+        />
       );
     }
     return all.map((el) => el);
