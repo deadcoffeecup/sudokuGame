@@ -4,7 +4,12 @@ class Table extends React.Component {
   constructor() {
     super();
     this.state = {
-      squares: Array(81).fill(0),
+      squares: [
+        3, 0, 0, 5, 7, 8, 4, 0, 2, 0, 2, 0, 1, 0, 0, 7, 6, 8, 4, 0, 7, 6, 0, 9,
+        5, 0, 0, 2, 6, 3, 4, 0, 0, 0, 8, 0, 9, 0, 0, 8, 6, 3, 1, 0, 0, 8, 0, 1,
+        7, 0, 0, 6, 0, 0, 1, 0, 8, 0, 4, 0, 2, 0, 0, 6, 9, 2, 3, 0, 1, 8, 0, 4,
+        7, 0, 0, 2, 8, 6, 3, 0, 9,
+      ],
     };
     this.handleChange = this.handleChange.bind(this);
     this.isValid = this.isValid.bind(this);
