@@ -14,18 +14,22 @@ const App = () => {
   const [timeDone, setTimeDone] = useState(0);
   const [ranking, setRanking] = useState([]);
 
+  const getData = () => {
+    onValue(rankingRef, (snapshot) => {
+      const data = snapshot.val();
+      setRanking(data.ranking);
+    });
+  };
+
   useEffect(() => {
+    getData();
     const interval = setInterval(() => {
-      onValue(rankingRef, (snapshot) => {
-        const data = snapshot.val();
-        setRanking(data.ranking);
-      });
+      getData();
       return () => {
         clearInterval(interval);
       };
-    }, 5000);
-    // setRanking((prev) => [...prev, newRecord]);
-  }, [rankingRef]);
+    }, 10000);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,17 +41,18 @@ const App = () => {
   }, [ranking]);
 
   const handleClick = () => {
-    const data = { userName: 'mirek' + timeDone, timeDone: timeDone };
-    setRanking((prev) => [...prev, data]);
+    const data = { userName: 'Gracz ' + timeDone, timeDone: timeDone };
     set(rankingRef, {
-      ranking,
+      ranking: [...ranking, data],
     });
   };
 
   return (
     <div className='App'>
       <h1>Sudoku</h1>
-      <button onClick={handleClick}>Win!</button>
+      <button disabled={!ranking.length} onClick={handleClick}>
+        Win!
+      </button>
       <Ranking ranking={ranking} />
       <Table />
     </div>

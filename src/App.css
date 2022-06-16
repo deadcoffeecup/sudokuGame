@@ -36,3 +36,7 @@ button {
   border: none;
   outline: none;
 }
+.ranking-list {
+  position: absolute;
+  left: 200px;
+}
