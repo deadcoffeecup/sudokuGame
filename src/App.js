@@ -4,41 +4,50 @@ import { ref, set, getDatabase, onValue } from 'firebase/database';
 import './App.css';
 import { app } from './firebaseConfig';
 
-// import { database as db } from './firebaseConfig';
 import Table from './Table';
 import { Ranking } from './Ranking';
 
 const App = () => {
   const db = getDatabase(app);
-  const [newRecord, setNewRecord] = useState();
-  const [ranking, setRanking] = useState([
-    { id: 1, userName: 'Fenek', timeDone: 'dzisiaj' },
-    { id: 2, userName: 'Zuzzi', timeDone: 'wczoraj' },
-  ]);
   const rankingRef = ref(db);
+
+  const [timeDone, setTimeDone] = useState(0);
+  const [ranking, setRanking] = useState([]);
+
   useEffect(() => {
-    onValue(rankingRef, (snapshot) => {
-      const data = snapshot.val();
-      setNewRecord(data);
-    });
+    const interval = setInterval(() => {
+      onValue(rankingRef, (snapshot) => {
+        const data = snapshot.val();
+        setRanking(data.ranking);
+      });
+      return () => {
+        clearInterval(interval);
+      };
+    }, 5000);
     // setRanking((prev) => [...prev, newRecord]);
-  }, []);
+  }, [rankingRef]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeDone((prev) => prev + 1);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [ranking]);
 
   const handleClick = () => {
-    const data = { id: 3, userName: 'mirek', timeDone: 'nigdy' };
+    const data = { userName: 'mirek' + timeDone, timeDone: timeDone };
     setRanking((prev) => [...prev, data]);
     set(rankingRef, {
       ranking,
     });
-    console.log(ranking);
   };
 
   return (
     <div className='App'>
       <h1>Sudoku</h1>
-      <button onClick={() => handleClick(ranking[ranking.length - 1])}>
-        Win!
-      </button>
+      <button onClick={handleClick}>Win!</button>
       <Ranking ranking={ranking} />
       <Table />
     </div>
