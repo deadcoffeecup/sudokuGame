@@ -41,7 +41,7 @@ const App = () => {
   }, [ranking]);
 
   const handleClick = () => {
-    const data = { userName: 'Gracz ' + timeDone, timeDone: timeDone };
+    const data = { userName: 'Player ' + timeDone, timeDone: timeDone };
     set(rankingRef, {
       ranking: [...ranking, data],
     });
@@ -50,11 +50,11 @@ const App = () => {
   return (
     <div className='App'>
       <h1>Sudoku</h1>
-      <button disabled={!ranking.length} onClick={handleClick}>
-        Win!
-      </button>
       <Ranking ranking={ranking} />
       <Table />
+      <button disabled={!ranking.length} onClick={handleClick}>
+        add record to ranking
+      </button>
     </div>
   );
 };

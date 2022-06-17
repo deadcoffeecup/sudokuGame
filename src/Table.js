@@ -16,6 +16,7 @@ class Table extends React.Component {
         0, 0, 6, 0, 0, 1, 0, 8, 0, 4, 0, 2, 0, 0, 6, 9, 2, 3, 0, 1, 8, 0, 4, 7,
         0, 0, 2, 8, 6, 3, 0, 9,
       ],
+      message: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.isValid = this.isValid.bind(this);
@@ -26,7 +27,7 @@ class Table extends React.Component {
 
     for (let i = 0; i < 9; i++) {
       board[i] = [];
-      board[i] = [...this.state.squares.slice(9 * i, 9 + 9 * i)];
+      board[i] = [...this.state.squares.slice(9 * i, 9 * (i + 1))];
     }
     let isRowsValid = true;
     for (let i = 0; i < 9; i++) {
@@ -45,9 +46,9 @@ class Table extends React.Component {
     }
 
     if (isRowsValid && isColsValid) {
-      alert('Udało się!');
+      this.setState({ message: 'You won!' });
     } else {
-      alert('Próbuj dalej!');
+      this.setState({ message: 'Keep trying' });
     }
   }
 
@@ -77,11 +78,13 @@ class Table extends React.Component {
 
   render() {
     return (
-      <div className='row'>
-        {this.renderSquares(81)}
-
-        <button onClick={this.isValid}>Check!</button>
-      </div>
+      <>
+        {this.state.message}
+        <div className='row'>
+          {this.renderSquares(81)}
+          <button onClick={this.isValid}>Check!</button>
+        </div>
+      </>
     );
   }
 }

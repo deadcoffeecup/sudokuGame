@@ -26,15 +26,22 @@
   border-collapse: collapse;
   border: 1px solid white;
 }
-input,
-button {
-  font-size: 40px;
+input {
   background-color: transparent;
+  font-size: 40px;
   color: white;
-  width: 100%;
-  height: 100%;
-  border: none;
+  border: 1px solid wheat;
+}
+button {
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 40px;
+  color: white;
+  border: 1px solid wheat;
   outline: none;
+}
+button:focus {
+  background-color: transparent;
 }
 .ranking-list {
   position: absolute;
