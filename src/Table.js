@@ -5,10 +5,16 @@ class Table extends React.Component {
     super();
     this.state = {
       squares: [
-        3, 0, 0, 5, 7, 8, 4, 0, 2, 0, 2, 0, 1, 0, 0, 7, 6, 8, 4, 0, 7, 6, 0, 9,
-        5, 0, 0, 2, 6, 3, 4, 0, 0, 0, 8, 0, 9, 0, 0, 8, 6, 3, 1, 0, 0, 8, 0, 1,
-        7, 0, 0, 6, 0, 0, 1, 0, 8, 0, 4, 0, 2, 0, 0, 6, 9, 2, 3, 0, 1, 8, 0, 4,
-        7, 0, 0, 2, 8, 6, 3, 0, 9,
+        // 3, 1, 6, 5, 7, 8, 4, 9, 2, 5, 2, 9, 1, 3, 4, 7, 6, 8, 4, 8, 7, 6, 2, 9,
+        // 5, 3, 1, 2, 6, 3, 4, 1, 5, 9, 8, 7, 9, 7, 4, 8, 6, 3, 1, 2, 5, 8, 5, 1,
+        // 7, 9, 2, 6, 4, 3, 1, 3, 8, 9, 4, 7, 2, 5, 6, 6, 9, 2, 3, 5, 1, 8, 7, 4,
+        // 7, 4, 5, 2, 8, 6, 3, 1, 9,
+        //solved one
+        3,
+        0, 0, 5, 7, 8, 4, 0, 2, 0, 2, 0, 1, 0, 0, 7, 6, 8, 4, 0, 7, 6, 0, 9, 5,
+        0, 0, 2, 6, 3, 4, 0, 0, 0, 8, 0, 9, 0, 0, 8, 6, 3, 1, 0, 0, 8, 0, 1, 7,
+        0, 0, 6, 0, 0, 1, 0, 8, 0, 4, 0, 2, 0, 0, 6, 9, 2, 3, 0, 1, 8, 0, 4, 7,
+        0, 0, 2, 8, 6, 3, 0, 9,
       ],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -16,18 +22,8 @@ class Table extends React.Component {
   }
 
   isValid() {
-    let board = [
-      // [3, 1, 6, 5, 7, 8, 4, 9, 2],
-      // [5, 2, 9, 1, 3, 4, 7, 6, 8],
-      // [4, 8, 7, 6, 2, 9, 5, 3, 1],
-      // [2, 6, 3, 4, 1, 5, 9, 8, 7],
-      // [9, 7, 4, 8, 6, 3, 1, 2, 5],
-      // [8, 5, 1, 7, 9, 2, 6, 4, 3],
-      // [1, 3, 8, 9, 4, 7, 2, 5, 6],
-      // [6, 9, 2, 3, 5, 1, 8, 7, 4],
-      // [7, 4, 5, 2, 8, 6, 3, 1, 9],
-      //that's solved one
-    ];
+    const board = [];
+
     for (let i = 0; i < 9; i++) {
       board[i] = [];
       board[i] = [...this.state.squares.slice(9 * i, 9 + 9 * i)];
@@ -36,8 +32,19 @@ class Table extends React.Component {
     for (let i = 0; i < 9; i++) {
       isRowsValid = isRowsValid && board[i].length === new Set(board[i]).size;
     }
-    //Checking only rows
-    if (isRowsValid) {
+
+    for (let i = 0; i < 9; i++) {
+      board[i] = [];
+      for (let j = 0; j < 9; j++) {
+        board[i].push(this.state.squares[i + 9 * j]);
+      }
+    }
+    let isColsValid = true;
+    for (let i = 0; i < 9; i++) {
+      isColsValid = isColsValid && board[i].length === new Set(board[i]).size;
+    }
+
+    if (isRowsValid && isColsValid) {
       alert('Udało się!');
     } else {
       alert('Próbuj dalej!');
