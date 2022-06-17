@@ -14,22 +14,12 @@ const App = () => {
   const [timeDone, setTimeDone] = useState(0);
   const [ranking, setRanking] = useState([]);
 
-  const getData = () => {
+  useEffect(() => {
     onValue(rankingRef, (snapshot) => {
       const data = snapshot.val();
       setRanking(data.ranking);
     });
-  };
-
-  useEffect(() => {
-    getData();
-    const interval = setInterval(() => {
-      getData();
-      return () => {
-        clearInterval(interval);
-      };
-    }, 10000);
-  }, []);
+  }, [rankingRef]);
 
   useEffect(() => {
     const interval = setInterval(() => {
