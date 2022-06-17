@@ -31,7 +31,7 @@ const App = () => {
   }, [ranking]);
 
   const handleClick = () => {
-    const data = { userName: 'Player ' + timeDone, timeDone: timeDone };
+    const data = { userName: 'Player ' + ranking.length, timeDone: timeDone };
     set(rankingRef, {
       ranking: [...ranking, data],
     });

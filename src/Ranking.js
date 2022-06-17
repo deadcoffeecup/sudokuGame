@@ -1,5 +1,5 @@
 export const Ranking = ({ ranking }) => {
-  const convertSecToSecAndMin = (time) => {
+  const convertSeconds = (time) => {
     let hours = Math.floor(time / 3600);
     time = time - hours * 3600;
     let minutes = Math.floor(time / 60);
@@ -14,7 +14,7 @@ export const Ranking = ({ ranking }) => {
         <li key={el.userName}>
           {el.userName}
           <ul>
-            <li> {convertSecToSecAndMin(el.timeDone)}</li>
+            <li> {convertSeconds(el.timeDone)}</li>
           </ul>
         </li>
       ))}
